@@ -1,0 +1,17 @@
+SELECT ROUND((
+SELECT COUNT(msg) AS total
+FROM $log-dns
+WHERE msg='A rating error occurs' AND $filter
+GROUP BY msg
+ORDER BY msg
+)
+/
+(
+SELECT SUM(subtotal) as grandtotal
+FROM ###(SELECT catdesc, COUNT(cat) AS subtotal
+FROM $log-dns
+WHERE cat!=0 AND $filter
+GROUP BY catdesc, cat
+ORDER BY catdesc         
+)### t
+) * 100,2) AS SDNS_Error_Percentage
