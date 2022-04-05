@@ -1,0 +1,5 @@
+SELECT srccountry AS country, count(*) AS totalnum
+FROM $log
+WHERE $filter
+GROUP BY country 
+ORDER BY totalnum DESC
