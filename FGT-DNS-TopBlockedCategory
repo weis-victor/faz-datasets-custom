@@ -1,0 +1,10 @@
+SELECT catdesc, sum(queries) AS queries
+FROM
+  ###(SELECT catdesc, action, count(*) AS queries 
+  FROM $log-dns
+  WHERE $filter AND (eventtype is null or logver>=502000000) AND catdesc IS NOT null
+  GROUP BY catdesc, action /*SkipSTART*/
+  ORDER BY queries desc/*SkipEND*/)### t
+WHERE action='redirect' 
+GROUP BY catdesc 
+ORDER BY queries DESC
