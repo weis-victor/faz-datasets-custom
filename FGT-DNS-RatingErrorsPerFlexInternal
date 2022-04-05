@@ -1,0 +1,5 @@
+SELECT $flex_timescale AS hodex, COUNT(msg) AS message 
+FROM $log-dns
+WHERE $filter AND msg='A rating error occurs'
+GROUP BY hodex, msg
+ORDER BY hodex
