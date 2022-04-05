@@ -1,0 +1,5 @@
+SELECT catdesc, COUNT(cat) AS total
+FROM $log-dns
+WHERE cat!=0 AND $filter
+GROUP BY catdesc, cat
+ORDER BY catdesc
