@@ -1,0 +1,5 @@
+SELECT CONCAT('<a href="https://whatismyipaddress.com/ip/', LEFT(CAST(dstip AS text), -3), '/" target="_blank">', LEFT(CAST(dstip AS text), -3), '</a>') AS dst_ip, dstip AS ptr, count(*) AS totalnum
+FROM $log
+WHERE $filter AND dstip IS NOT null
+GROUP BY dst_ip, ptr 
+ORDER BY totalnum desc
