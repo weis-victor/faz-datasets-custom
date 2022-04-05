@@ -1,0 +1,8 @@
+SELECT $flex_timescale(timestamp) AS hodex, SUM(sessions) AS session FROM
+###(
+   SELECT $flex_timestamp AS timestamp, CAST(LEFT(substring(msg, '\d.*>'), -2) AS INTEGER) AS sessions 
+   FROM $log
+   WHERE $filter GROUP BY timestamp, msg /*SkipSTART*/ORDER BY timestamp desc/*SkipEND*/
+)### t
+GROUP BY hodex
+ORDER BY hodex
