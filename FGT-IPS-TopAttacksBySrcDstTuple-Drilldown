@@ -1,0 +1,17 @@
+# This dataset helps visualize which source-attack-destination tuples are most prevelant.
+# Very helpful with a Sankey chart
+
+SELECT from_itime(itime) AS timestamp, attack, srcip, dstip, action
+FROM
+###(
+SELECT itime,
+  attack,
+  srcip, 
+  dstip, 
+  action
+FROM $log 
+WHERE $filter-exclude-var
+ORDER BY itime desc
+)### t
+WHERE $filter-drilldown
+ORDER BY timestamp desc
