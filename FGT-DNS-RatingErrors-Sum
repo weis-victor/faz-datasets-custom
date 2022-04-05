@@ -1,0 +1,5 @@
+SELECT COUNT(msg) AS total
+FROM $log-dns
+WHERE msg='A rating error occurs' AND $filter
+GROUP BY msg
+ORDER BY msg
