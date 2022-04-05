@@ -1,0 +1,7 @@
+SELECT to_char(SUM(subtotal), 'FM9,999,999,999') as grandtotal
+FROM ###(SELECT catdesc, COUNT(cat) AS subtotal
+FROM $log-dns
+WHERE cat!=0 AND $filter
+GROUP BY catdesc, cat
+ORDER BY catdesc         
+)### t
