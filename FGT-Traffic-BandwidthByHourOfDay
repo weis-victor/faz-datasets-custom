@@ -1,0 +1,9 @@
+SELECT hourstamp, sum(bandwidth)/count(distinct daystamp) AS bandwidth
+FROM ###(
+  SELECT to_char(from_dtime(dtime), 'HH24:00') AS hourstamp, to_char(from_dtime(dtime), 'DD Mon') AS daystamp, sum(coalesce(sentbyte, 0)+coalesce(rcvdbyte, 0)) AS bandwidth FROM $log
+  WHERE $filter
+  GROUP BY hourstamp, daystamp HAVING sum(coalesce(sentbyte, 0)+coalesce(rcvdbyte, 0))>0
+  ORDER BY hourstamp
+  )### t
+GROUP BY hourstamp
+ORDER BY hourstamp
