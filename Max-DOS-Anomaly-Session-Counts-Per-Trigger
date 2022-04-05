@@ -1,0 +1,6 @@
+SELECT to_char(MAX(sessions), 'FM9,999,999') AS sessions
+FROM
+###(SELECT CAST(LEFT(substring(msg, '\d.*>'), -2) AS integer) AS sessions
+FROM $log
+WHERE $filter AND subtype='anomaly'
+)### t
