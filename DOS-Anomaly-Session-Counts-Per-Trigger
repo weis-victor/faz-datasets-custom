@@ -1,0 +1,5 @@
+SELECT FROM_ITIME(itime) AS timestamp, CAST(LEFT(substring(msg, '\d.*>'), -2) AS INTEGER) AS sessions, msg AS message 
+FROM $log
+WHERE $filter AND subtype='anomaly'
+GROUP BY timestamp, sessions, msg
+ORDER BY timestamp
