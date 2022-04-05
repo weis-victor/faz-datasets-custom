@@ -1,0 +1,9 @@
+SELECT $flex_timescale(timestamp) AS hodex, sum(sessions) AS sessions
+FROM ###(
+   SELECT $flex_timestamp AS timestamp, coalesce(nullifna(`user`), nullifna(`unauthuser`), ipstr(`srcip`)) AS user_src, count(*) AS sessions, sum(coalesce(sentbyte, 0)) AS traffic_out, sum(coalesce(rcvdbyte, 0)) AS traffic_in
+   FROM $log
+   WHERE $filter AND (logflag&1>0)
+   GROUP BY timestamp, user_src /*SkipSTART*/order by timestamp desc/*SkipEND*/
+   )### t
+GROUP BY hodex
+ORDER BY hodex
