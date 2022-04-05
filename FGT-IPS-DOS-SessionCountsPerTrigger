@@ -1,5 +1,3 @@
-# Log type = Intrusion Prevention
-
 # This dataset extracts the average session counts per trigger.
 # N.B. the session counts don't exist in a dedicated field in the logs, so I had to extract them from the message string and then cast them to an integer.
 
