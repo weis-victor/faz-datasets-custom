@@ -1,0 +1,6 @@
+SELECT CONCAT('<a href="https://whatismyipaddress.com/ip/', LEFT(CAST(srcip AS text), -3), '/" 
+ target="_blank">', LEFT(CAST(srcip AS text), -3), '</a>') AS source_ip, coalesce(nullifna(`user`), ipstr(`srcip`)) AS user_src,  srccountry AS country, count(*) AS totalnum
+FROM $log
+WHERE $filter
+GROUP BY user_src, source_ip, country 
+ORDER BY totalnum DESC
